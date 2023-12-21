@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { remove } from "../store/cartSlice";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 function Cart() {
 	const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function Cart() {
 	};
 
 	// MAPPING CART ITEMS
-	const cartItems = cartItemsData.map((product, index) => (
+	const cartItems = selectCartItems.map((product, index) => (
 		<div
 			className="border rounded p-5 flex flex-col  justify-evenly gap-3"
 			key={index}

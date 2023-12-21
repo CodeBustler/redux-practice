@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { add } from "../store/cartSlice";
+import { addItem } from '../redux/cart/cart.actions';
 
 function Products() {
 	const [products, setProducts] = useState([]);
-	const dispatch = useDispatch();
-
+	
 	// LOAD STORE DATA ON LOAD
 	useEffect(() => {
 		fetch("https://fakestoreapi.com/products")
 			.then((data) => data.json())
 			.then((result) => setProducts(result));
-		console.log(products);
+		//console.log(products);
 	}, []);
-
-	// ADD CARTS
-	const addToCart = (product) => {
-		dispatch(add(product));
-	};
 
 	// MAPPING ITEM CARDS
 	const productCards = products.map((product, index) => (
@@ -36,7 +30,7 @@ function Products() {
 				<h2 className="text-lg font-bold"> $ {product.price}</h2>
 				<button
 					className="px-4 py-2 rounded text-white font-semi bold bg-blue-500 active:bg-blue-800"
-					onClick={() => addToCart(product)}
+					onClick={() => addItem(product)}
 				>
 					Add to Cart
 				</button>
@@ -53,4 +47,13 @@ function Products() {
 	);
 }
 
-export default Products;
+const mapDispatchToProps = dispatch => ({
+	addItem: item => dispatch(addItem(item))
+});
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(CollectionItem);
+
+//export default Products;
