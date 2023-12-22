@@ -1,13 +1,6 @@
-import { useDispatch, useSelector, connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import { selectCartItems } from '../../redux/cart/cart.selectors';
+import { selectCartItems } from '../store/cart/cart.selectors';
 
 function Cart() {
-	const dispatch = useDispatch();
-	const cartItemsData = useSelector((state) => state.cart);
-	const navigate = useNavigate();
-
 	// REMOVE FROM CART
 	const removeFromCart = (product) => {
 		dispatch(remove(product));
