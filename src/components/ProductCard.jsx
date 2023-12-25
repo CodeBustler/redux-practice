@@ -1,8 +1,17 @@
-import { addItemToCart } from '../store/cart/cart.actions.js';
+import { useDispatch } from "react-redux";
+import { cartReducer } from '../store/cart/cart.reducer';
+//import { CART_ACTION_TYPES } from '../store/cart/cart.actions';
 
-    export const ProductList = (product) => {
+import { addItemToCart } from '../store/cart/cart.actions';
+import { selectCartItems } from '../store/cart/cart.selectors';
 
-	const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+
+export const ProductCards = ( props ) => {
+	const dispatch = useDispatch();
+
+	const { product, index  }= props.props;
+	
+	const addItem = () => dispatch(cartReducer( product ));
     
     return (
 		<div
@@ -20,10 +29,12 @@ import { addItemToCart } from '../store/cart/cart.actions.js';
 				<h2 className="text-lg font-bold"> $ {product.price}</h2>
 				<button
 					className="px-4 py-2 rounded text-white font-semi bold bg-blue-500 active:bg-blue-800"
-					onClick={() => addProductToCart(product) } 
+					onClick={() => addItem(product) } 
 				>
 					Add to Cart
 				</button>
 			</div>
 		</div>
     )}
+
+//export default ProductCards;
