@@ -1,17 +1,17 @@
-import { useDispatch } from "react-redux";
-import { cartReducer } from '../store/cart/cart.reducer';
-//import { CART_ACTION_TYPES } from '../store/cart/cart.actions';
+import { useDispatch, useSelector } from "react-redux";
 
 import { addItemToCart } from '../store/cart/cart.actions';
 import { selectCartItems } from '../store/cart/cart.selectors';
 
 
-export const ProductCards = ( props ) => {
-	const dispatch = useDispatch();
-
-	const { product, index  }= props.props;
+export const ProductCards = (props) => {
 	
-	const addItem = () => dispatch(cartReducer( product ));
+	const { product, index } = props.props;
+
+	const dispatch = useDispatch();
+  	const cartItems = useSelector(selectCartItems);
+
+	const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
     
     return (
 		<div
@@ -29,7 +29,7 @@ export const ProductCards = ( props ) => {
 				<h2 className="text-lg font-bold"> $ {product.price}</h2>
 				<button
 					className="px-4 py-2 rounded text-white font-semi bold bg-blue-500 active:bg-blue-800"
-					onClick={() => addItem(product) } 
+					onClick={ addProductToCart } 
 				>
 					Add to Cart
 				</button>
