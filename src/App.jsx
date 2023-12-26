@@ -1,11 +1,12 @@
 import Cart from "./components/Cart";
 import Products from "./components/Products";
 import RootLayout from "./components/RootLayout";
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider,
+  RouterProvider
 } from "react-router-dom";
 
 const router = createBrowserRouter(

@@ -1,9 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
-import cartSlice from "./cartSlice";
-const store = configureStore({
-	reducer: {
-		cart: cartSlice,
-	},
-});
+import { compose, createStore, applyMiddleware } from 'redux';
+ import logger from 'redux-logger';
 
-export default store;
+import { rootReducer } from './root-reducer';
+
+const loggerMiddleware = (store) => (next) => (action) => {
+    if (!action.type) {
+        return next(action);
+    }
+
+    console.log('type: ', action.type);
+    console.log('payload: ', action.payload);
+    console.log('currentState: ', store.getState());
+
+    next(action);
+
+    console.log('next state: ', store.getState());
+    };
+
+const middleWares = [loggerMiddleware, logger];
+
+const composedEnhancers = compose(applyMiddleware(...middleWares));
+
+export const store = createStore(rootReducer, undefined, composedEnhancers);
