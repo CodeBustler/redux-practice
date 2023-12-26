@@ -13,10 +13,10 @@ export const selectCartItems = createSelector(
 );
 
 export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
-  cartItems.reduce(
-    (total, cartItem) => total + cartItem.quantity * cartItem.price,
-    0
-  )
+    cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity * cartItem.price,
+      0
+    ).toLocaleString('pt-br',{style: 'currency', currency: 'USD'})
 );
 
 export const selectCartCount = createSelector([selectCartItems], (cartItems) =>
